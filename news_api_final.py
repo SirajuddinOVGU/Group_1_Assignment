@@ -4,7 +4,7 @@ import time
 from datetime import datetime, timedelta
 
 # NewsAPI key
-api_key = "60ceb21f2784423aa8e2bc0531bdcb73"
+api_key = "aaee18fbaac94d8e8948136bfd5e687e" #Carmenapi: 60ceb21f2784423aa8e2bc0531bdcb73 #Siraapi: aaee18fbaac94d8e8948136bfd5e687e
 base_url = "https://newsapi.org/v2/everything"
 
 # Companies
@@ -12,7 +12,53 @@ companies = {
     "AAPL": "Apple",
     "MSFT": "Microsoft",
     "AMZN": "Amazon",
-    "TSLA": "Tesla"
+    "GOOGL": "Google",
+    "META": "Meta",
+    "NVDA": "NVIDIA",
+    "TSLA": "Tesla",
+    "BRK-B": "Berkshire Hathaway",
+    "JPM": "JPMorgan Chase",
+    "JNJ": "Johnson & Johnson",
+    "V": "Visa",
+    "PG": "Procter & Gamble",
+    "XOM": "Exxon Mobil",
+    "UNH": "UnitedHealth Group",
+    "HD": "Home Depot",
+    "MA": "Mastercard",
+    "PFE": "Pfizer",
+    "BAC": "Bank of America",
+    "CVX": "Chevron",
+    "WMT": "Walmart",
+    "ABT": "Abbott Laboratories",
+    "KO": "Coca-Cola",
+    "PEP": "PepsiCo",
+    "NFLX": "Netflix",
+    "DIS": "The Walt Disney Company",
+    "AGX": "Argan Inc",
+    "PLAB": "Photronics",
+    "BKE": "Buckle Inc.",
+    "KLIC": "Kulicke and Soffa",
+    "VRA": "Vera Bradley",
+    "NHTC": "Natural Health Trends",
+    "ELA": "Envela Corporation",
+    "WHG": "Westwood Holdings",
+    "ULBI": "Ultralife Corporation",
+    "MLAB": "Mesa Laboratories",
+    "PRQR": "ProQR Therapeutics",
+    "OHI": "Omega Healthcare",
+    "HALL": "Hallmark Financial",
+    "LWAY": "Lifeway Foods",
+    "IDT": "IDT Corporation",
+    "GBLI": "Global Indemnity",
+    "AE": "Adams Resources",
+    "PFIN": "P&F Industries",
+    "MLR": "Miller Industries",
+    "CODA": "Coda Octopus",
+    "BRT": "BRT Realty Trust",
+    "WSTL": "Westell Technologies",
+    "LIQT": "Sievert Larson",
+    "BRMK": "Broadmark Realty",
+    "DRCT": "Direct Digital Holdings"
 }
 
 # Use recent data only (free tier allows last ~30 days)
