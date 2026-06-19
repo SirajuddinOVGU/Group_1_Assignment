@@ -29,14 +29,33 @@ def get_release_column(df) -> Optional[str]:
     return None
 
 
+def parse_percentage(score_text: Optional[str]) -> Optional[float]:
+    """Extract a numeric percentage from a Tomatometer score string."""
+    if not score_text:
+        return None
+
+    cleaned = str(score_text).strip().replace('%', '')
+    try:
+        return float(cleaned)
+    except ValueError:
+        return None
+
+
+def classify_tomatometer(score_text: Optional[str]) -> str:
+    """Classify a movie as Fresh or Rotten using the 60% Tomatometer cutoff."""
+    percentage = parse_percentage(score_text)
+    if percentage is None:
+        return 'Unknown'
+    return 'Fresh' if percentage >= 60 else 'Rotten'
+
+
 def get_tomatometer_score(movie_name: str, max_retries: int = 3) -> Optional[Dict[str, str]]:
     """
     Scrape ONLY the tomatometer score, review count, and icon status for a given movie from Rotten Tomatoes.
     Returns a dict with 'percentage', 'reviews', and 'icon' keys, or None if not found.
     
     Icon status:
-    - "Certified Fresh" (75%+, certified)
-    - "Fresh" (60%+, not certified)
+    - "Fresh" (60%+)
     - "Rotten" (<60%)
     """
     if not movie_name or str(movie_name).strip() == '':
@@ -106,17 +125,8 @@ def get_tomatometer_score(movie_name: str, max_retries: int = 3) -> Optional[Dic
                 review_count = critics_reviews.get_text(strip=True)
             
             # Find icon status (certified + sentiment)
-            icon_element = movie_soup.find('score-icon-critics')
-            icon_status = 'Unknown'
-            if icon_element:
-                certified = icon_element.get('certified', 'false').lower() == 'true'
-                sentiment = icon_element.get('sentiment', '').upper()
-                
-                if sentiment == 'POSITIVE':
-                    icon_status = 'Certified Fresh' if certified else 'Fresh'
-                elif sentiment == 'NEGATIVE':
-                    icon_status = 'Rotten'
-            
+            icon_status = classify_tomatometer(tomatometer_percent)
+
             # Verify we found the tomatometer (not audience score or error page)
             if not tomatometer_percent:
                 logger.warning(f"Could not find tomatometer percentage for '{movie_name}'")
