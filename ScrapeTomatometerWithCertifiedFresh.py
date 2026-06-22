@@ -3,7 +3,7 @@ Read an Excel file, scrape Rotten Tomatoes tomatometer ratings for movies, and e
 
 Usage:
   pip install pandas openpyxl requests beautifulsoup4
-  python scrapeTomatometer.py --input MovieListBoxOffice.xlsx --output MovieListBoxOffice_WithTomatometer.xlsx
+  python scrapeTomatometer.py --input MovieListBoxOffice.xlsx --output Tomatometer_Certified.xlsx
 
 Outputs an Excel file with all original data plus a new 'Tomatometer' column in each sheet.
 """
@@ -246,8 +246,13 @@ def get_tomatometer_score(movie_name: str, max_retries: int = 3) -> Optional[Dic
 
 def main():
     parser = argparse.ArgumentParser(description='Add Rotten Tomatoes tomatometer ratings to movie Excel data')
-    parser.add_argument('--input', '-i', required=True, help='Input Excel file (.xlsx)')
-    parser.add_argument('--output', '-o', default='MovieListBoxOffice_WithTomatometer.xlsx', help='Output Excel filename')
+    parser.add_argument(
+    '--input',
+    '-i',
+    default='/workspaces/Group_1_Assignment/MovieListBoxOffice.xlsx',
+    help='Input Excel file (.xlsx)'
+)
+    parser.add_argument('--output', '-o', default='Tomatometer_Certified.xlsx', help='Output Excel filename')
     parser.add_argument('--delay', '-d', type=float, default=1.5, help='Delay between requests (seconds)')
     args = parser.parse_args()
 
