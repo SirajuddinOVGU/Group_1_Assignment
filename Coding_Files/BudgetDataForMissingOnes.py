@@ -3,8 +3,6 @@
 For movies where Budget is '-', searches Wikipedia for the film,
 then scrapes the Production Budget from the infobox.
 
-Usage:
-  python BudgetDataForMissingOnes.py
 """
 
 import re
@@ -102,16 +100,15 @@ def scrape_budget_from_wikipedia(url: str) -> Optional[str]:
         header_text = header.get_text(strip=True).lower()
         if 'budget' in header_text:
             raw = data.get_text(strip=True)
-            # Extract first dollar amount, e.g. '$50,000,000' or '$50 million'
-            # Try $X,XXX,XXX format first
-            match = re.search(r'\$[\d,]+', raw)
-            if match:
-                return match.group()
-            # Try '$X million' format → convert to full number
-            match = re.search(r'\$\s*([\d.]+)\s*[-–]?\s*([\d.]+)?\s*million', raw, re.IGNORECASE)
+            # Check for '$X million' or '$X–Y million' FIRST before bare dollar match
+            match = re.search(r'\$\s*([\d.]+)\s*(?:[-–]\s*[\d.]+\s*)?million', raw, re.IGNORECASE)
             if match:
                 amount = float(match.group(1))
                 return f'${int(amount * 1_000_000):,}'
+            # Try $X,XXX,XXX format
+            match = re.search(r'\$[\d,]+', raw)
+            if match:
+                return match.group()
 
     logger.warning('  Budget row not found in infobox.')
     return None
