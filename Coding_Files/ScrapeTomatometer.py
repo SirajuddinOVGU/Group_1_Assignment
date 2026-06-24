@@ -1,20 +1,16 @@
-"""scrapeTomatometer.py
-Read an Excel file, scrape Rotten Tomatoes tomatometer ratings for movies, and export enhanced Excel file.
+#Read movie names from an Excel file, scrape Rotten Tomatoes tomatometer ratings for those movies, and export to Excel file.
 
-Usage:
-  pip install pandas openpyxl requests beautifulsoup4
-  python scrapeTomatometer.py --input MovieListBoxOffice.xlsx --output Tomatometer_Certified.xlsx
+#input 1DataFromBoxOfficeMojo.xlsx --output 2DataAfterScrapingFromRT.xlsx
 
-Outputs an Excel file with all original data plus a new 'Tomatometer' column in each sheet.
-"""
+#Outputs an Excel file with all original data plus new columns with data from Rotten Tomatoes.
 
-import argparse
+
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 import time
 import logging
-from typing import List, Dict, Optional
+from typing import Dict, Optional
 import urllib.parse
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -22,7 +18,7 @@ logger = logging.getLogger(__name__)
 
 
 def get_release_column(df) -> Optional[str]:
-    """Find the 'Release' column (case-insensitive) in a dataframe."""
+    #Find the 'Release' column (case-insensitive) in a dataframe.
     for c in df.columns:
         if str(c).strip().lower() == 'release':
             return c
@@ -30,7 +26,7 @@ def get_release_column(df) -> Optional[str]:
 
 
 def parse_percentage(score_text: Optional[str]) -> Optional[float]:
-    """Extract a numeric percentage from a Tomatometer score string."""
+    #Extract a numeric percentage from a Tomatometer score string.
     if not score_text:
         return None
 
@@ -42,7 +38,7 @@ def parse_percentage(score_text: Optional[str]) -> Optional[float]:
 
 
 def parse_review_count(review_text: Optional[str]) -> Optional[int]:
-    """Extract the numeric review count from review count text."""
+    #Extract the numeric review count from review count text.
     if not review_text:
         return None
 
@@ -55,11 +51,9 @@ def parse_review_count(review_text: Optional[str]) -> Optional[int]:
 
 
 def count_top_critics_reviews(movie_slug: str, headers: Dict[str, str]) -> int:
-    """
-    Scrape the Top Critics page and count actual rendered review cards.
-    Stop counting once we reach 5 (requirement met).
-    Returns the count (capped at 5 if found).
-    """
+    #Scrape the Top Critics page and count actual rendered review cards.
+    #Stop counting once we reach 5 (requirement met).
+    #Returns the count (capped at 5 if found).
     if not movie_slug:
         return 0
 
@@ -72,10 +66,8 @@ def count_top_critics_reviews(movie_slug: str, headers: Dict[str, str]) -> int:
         
         soup = BeautifulSoup(response.content, 'html.parser')
         
-        # Look for review cards. Rotten Tomatoes typically uses review-card or similar elements
         review_cards = soup.find_all(['review-card', 'div'], class_=lambda x: x and 'review' in str(x).lower())
         
-        # Count actual rendered review cards
         count = 0
         for card in review_cards:
             if card.name == 'review-card' or (card.name == 'div' and 'review' in str(card.get('class', '')).lower()):
@@ -93,7 +85,7 @@ def count_top_critics_reviews(movie_slug: str, headers: Dict[str, str]) -> int:
 
 
 def extract_movie_slug(movie_link: str) -> Optional[str]:
-    """Extract the movie slug from a Rotten Tomatoes movie URL."""
+    #Extract the movie slug from a Rotten Tomatoes movie URL.
     if '/m/' not in movie_link:
         return None
     
@@ -102,19 +94,15 @@ def extract_movie_slug(movie_link: str) -> Optional[str]:
         return None
     
     slug = parts[1].strip('/')
-    return slug.split('?')[0]  # Remove query params if any
+    return slug.split('?')[0]
 
 
 def classify_tomatometer(score_text: Optional[str], review_count_text: Optional[str] = None, 
                          movie_slug: Optional[str] = None, headers: Optional[Dict[str, str]] = None) -> str:
-    """
-    Classify a movie as Fresh, Rotten, or Certified Fresh.
-    
-    Rules:
-    - Rotten: < 60%
-    - Fresh: 60-74%
-    - Certified Fresh: 75%+, 80+ reviews, and 5+ Top Critics reviews
-    """
+    #Classify a movie as Rotten, Fresh or Certified Fresh.
+    #- Rotten: < 60%
+    #- Fresh: 60-74%
+    #- Certified Fresh: at least 75% with 80+ reviews, and 5+ Top Critics reviews, if not it is still Fresh
     percentage = parse_percentage(score_text)
     if percentage is None:
         return 'Unknown'
@@ -125,12 +113,10 @@ def classify_tomatometer(score_text: Optional[str], review_count_text: Optional[
     if percentage < 75:
         return 'Fresh'
     
-    # Percentage is 75+, now check for Certified Fresh
     review_count = parse_review_count(review_count_text)
     if review_count is None or review_count < 80:
         return 'Fresh'
     
-    # Has 80+ reviews, now check Top Critics
     if movie_slug and headers:
         top_critics_count = count_top_critics_reviews(movie_slug, headers)
         if top_critics_count >= 5:
@@ -140,15 +126,8 @@ def classify_tomatometer(score_text: Optional[str], review_count_text: Optional[
 
 
 def get_tomatometer_score(movie_name: str, max_retries: int = 3) -> Optional[Dict[str, str]]:
-    """
-    Scrape ONLY the tomatometer score, review count, and icon status for a given movie from Rotten Tomatoes.
-    Returns a dict with 'percentage', 'reviews', and 'icon' keys, or None if not found.
-    
-    Icon status:
-    - "Certified Fresh" (75%+, 80+ reviews, 5+ Top Critics)
-    - "Fresh" (60%+)
-    - "Rotten" (<60%)
-    """
+    #Scrape ONLY the tomatometer score and review count for a given movie from Rotten Tomatoes.
+    #Returns a dict with 'percentage' and 'reviews' keys, or None if not found.
     if not movie_name or str(movie_name).strip() == '':
         return None
     
@@ -166,11 +145,9 @@ def get_tomatometer_score(movie_name: str, max_retries: int = 3) -> Optional[Dic
             
             soup = BeautifulSoup(response.content, 'html.parser')
             
-            # Look for search result containers
             search_containers = soup.find_all('a', class_=lambda x: x and 'search-page-media-row' in x)
             
             if not search_containers:
-                # Fallback: look for any /m/ links in search results area
                 results_section = soup.find('div', class_=lambda x: x and 'search' in str(x).lower())
                 if results_section:
                     search_containers = results_section.find_all('a', href=lambda x: x and '/m/' in x)
@@ -179,7 +156,6 @@ def get_tomatometer_score(movie_name: str, max_retries: int = 3) -> Optional[Dic
                 logger.warning(f"No search results found for '{movie_name}'")
                 return None
             
-            # Get the first relevant result
             movie_link = None
             for container in search_containers:
                 link = container.get('href', '')
@@ -196,42 +172,34 @@ def get_tomatometer_score(movie_name: str, max_retries: int = 3) -> Optional[Dic
             
             logger.info(f"Found link: {movie_link}")
             
-            # Extract movie slug for Top Critics check
             movie_slug = extract_movie_slug(movie_link)
             
-            # Fetch the movie page
             time.sleep(0.5)
             movie_response = requests.get(movie_link, headers=headers, timeout=10)
             movie_response.raise_for_status()
             
             movie_soup = BeautifulSoup(movie_response.content, 'html.parser')
             
-            # Find tomatometer percentage (critics-score slot)
             critics_score = movie_soup.find('rt-text', {'slot': 'critics-score'})
             tomatometer_percent = None
             if critics_score:
                 tomatometer_percent = critics_score.get_text(strip=True)
             
-            # Find review count (critics-reviews slot)
             critics_reviews = movie_soup.find('rt-link', {'slot': 'critics-reviews'})
             review_count = None
             if critics_reviews:
                 review_count = critics_reviews.get_text(strip=True)
             
-            # Classify with Certified Fresh check
-            icon_status = classify_tomatometer(tomatometer_percent, review_count, movie_slug, headers)
-
-            # Verify we found the tomatometer (not audience score or error page)
             if not tomatometer_percent:
                 logger.warning(f"Could not find tomatometer percentage for '{movie_name}'")
                 return None
             
-            logger.info(f"✓ '{movie_name}': {tomatometer_percent} ({review_count}) - {icon_status}")
+            logger.info(f"✓ '{movie_name}': {tomatometer_percent} ({review_count})")
             
             return {
                 'percentage': tomatometer_percent,
                 'reviews': review_count if review_count else 'N/A',
-                'icon': icon_status
+                'slug': movie_slug
             }
         
         except requests.exceptions.RequestException as e:
@@ -245,60 +213,50 @@ def get_tomatometer_score(movie_name: str, max_retries: int = 3) -> Optional[Dic
 
 
 def main():
-    parser = argparse.ArgumentParser(description='Add Rotten Tomatoes tomatometer ratings to movie Excel data')
-    parser.add_argument(
-    '--input',
-    '-i',
-    default='/workspaces/Group_1_Assignment/MovieListBoxOffice.xlsx',
-    help='Input Excel file (.xlsx)'
-)
-    parser.add_argument('--output', '-o', default='Tomatometer_Certified.xlsx', help='Output Excel filename')
-    parser.add_argument('--delay', '-d', type=float, default=1.5, help='Delay between requests (seconds)')
-    args = parser.parse_args()
+    input_file = '/workspaces/Group_1_Assignment/Outputs&ExcelFiles/1DataFromBoxOfficeMojo.xlsx'
+    output_file = '/workspaces/Group_1_Assignment/Outputs&ExcelFiles/2DataAfterScrapingFromRT.xlsx'
+    delay = 1.5
 
-    # Load all sheets into a dictionary of dataframes
-    logger.info(f"Loading Excel file: {args.input}")
-    sheets_dict = pd.read_excel(args.input, sheet_name=None)
-    logger.info(f"Found {len(sheets_dict)} sheets: {list(sheets_dict.keys())}")
-    
-    # Process each sheet
-    for sheet_name, df in sheets_dict.items():
-        logger.info(f"\n=== Processing Sheet: {sheet_name} ===")
+    # Load the single sheet
+    logger.info(f"Loading Excel file: {input_file}")
+    df = pd.read_excel(input_file)
+    logger.info(f"Loaded {len(df)} rows")
+
+    # Find Release column
+    release_col = get_release_column(df)
+    if release_col is None:
+        logger.error("No 'Release' column found in the sheet. Please check your column names.")
+        return
+
+    # Initialize new columns
+    df['Tomatometer'] = ''
+    df['Tomatometer Reviews'] = ''
+    df['Tomatometer Icon'] = ''
+
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+    }
+
+    # Scrape tomatometer for each movie
+    total = len(df)
+    for idx, movie_name in enumerate(df[release_col], 1):
+        logger.info(f"\n[{idx}/{total}]")
         
-        # Find Release column
-        release_col = get_release_column(df)
-        if release_col is None:
-            logger.warning(f"No 'Release' column found in sheet '{sheet_name}', skipping")
-            continue
+        result = get_tomatometer_score(movie_name)
+        if result:
+            percentage = result.get('percentage', '')
+            reviews = result.get('reviews', '')
+            movie_slug = result.get('slug')
+            df.at[idx - 1, 'Tomatometer'] = percentage
+            df.at[idx - 1, 'Tomatometer Reviews'] = reviews
+            df.at[idx - 1, 'Tomatometer Icon'] = classify_tomatometer(percentage, reviews, movie_slug, headers)
         
-        # Initialize Tomatometer, Reviews, and Icon columns
-        df['Tomatometer'] = ''
-        df['Tomatometer Reviews'] = ''
-        df['Tomatometer Icon'] = ''
-        
-        # Scrape tomatometer for each movie
-        for idx, movie_name in enumerate(df[release_col], 1):
-            total = len(df)
-            logger.info(f"\n[{sheet_name}: {idx}/{total}]")
-            
-            result = get_tomatometer_score(movie_name)
-            if result:
-                df.at[idx - 1, 'Tomatometer'] = result.get('percentage', '')
-                df.at[idx - 1, 'Tomatometer Reviews'] = result.get('reviews', '')
-                df.at[idx - 1, 'Tomatometer Icon'] = result.get('icon', '')
-            
-            time.sleep(args.delay)
-        
-        # Update the dataframe in the dict
-        sheets_dict[sheet_name] = df
-    
+        time.sleep(delay)
+
     # Export to Excel
-    logger.info(f"\nExporting to Excel: {args.output}")
-    with pd.ExcelWriter(args.output, engine='openpyxl') as writer:
-        for sheet_name, df in sheets_dict.items():
-            df.to_excel(writer, sheet_name=sheet_name, index=False)
-    
-    logger.info(f"✓ Successfully exported to {args.output}")
+    logger.info(f"\nExporting to Excel: {output_file}")
+    df.to_excel(output_file, index=False)
+    logger.info(f"✓ Successfully exported to {output_file}")
 
 
 if __name__ == '__main__':
