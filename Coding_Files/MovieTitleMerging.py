@@ -1,6 +1,8 @@
 # =========================
 # 1. IMPORT PACKAGES
 # =========================
+from pathlib import Path
+
 import pandas as pd
 from rapidfuzz import process, fuzz
 
@@ -113,7 +115,9 @@ print(merged.shape)
 # =========================
 # 11. SAVE FINAL FILE
 # =========================
-output_path = r"Outputs&ExcelFiles\MovieTitlesMerging\merged_movies.xlsx"
+output_dir = Path("Outputs&ExcelFiles/MovieTitleMerging")
+output_dir.mkdir(parents=True, exist_ok=True)
+output_path = output_dir / "merged_movies.xlsx"
 
 merged.to_excel(output_path, index=False)
 
