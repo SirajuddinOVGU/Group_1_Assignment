@@ -6,27 +6,27 @@ import statsmodels.api as sm #for OLS regression
 import seaborn as sns #for visualization
 import warnings #for output cleaning purposes
 
-df = pd.read_excel("Outputs&ExcelFiles/CleanedRegressionData.xlsx") #set path to dataset file
+df = pd.read_excel("Outputs&ExcelFiles/3DataRegression.xlsx") #set path to dataset file
 print(df.head()) #check if data is read
 
 print(df.dtypes) #check if data is in integers/floats format
 
 #check if there are any 0s in data
-print((df['Number_of_Reviews'] <= 0).sum())
-print((df['Opening_Weekend_Gross'] <= 0).sum())
+print((df['Tomatometer Reviews'] <= 0).sum())
+print((df['Opening'] <= 0).sum())
 print((df['Budget'] <= 0).sum())
 
-df['ln_Opening_Weekend_Gross'] = np.log(df['Opening_Weekend_Gross']) #create new column for log of opening weekend gross
+df['ln_Opening_Weekend_Gross'] = np.log(df['Opening']) #create new column for log of opening weekend gross
 df['ln_Budget'] = np.log(df['Budget']) #create new column for log of budget
-df['ln_Number_of_Reviews'] = np.log(df['Number_of_Reviews']) #create new column for log of number of reviews
+df['ln_Number_of_Reviews'] = np.log(df['Tomatometer Reviews']) #create new column for log of number of reviews
 
 #Create new dataframe for regression analysis
 reg_df = df[['ln_Opening_Weekend_Gross',
              'Tomatometer',
              'ln_Number_of_Reviews',
-             'Franchise_Status',
+             'Franchise',
              'ln_Budget',
-             'Year']]
+             't']]
 
 print(reg_df.describe()) #print descriptive statistics of data
 
@@ -56,9 +56,9 @@ print(model2.summary())
 #Regression Model 3
 X3 = reg_df[['Tomatometer',
             'ln_Number_of_Reviews',
-            'Franchise_Status',
+            'Franchise',
             'ln_Budget',
-            'Year']]
+            't']]
 
 X3 = sm.add_constant(X3)
 
@@ -71,9 +71,9 @@ print(model3.summary())
 from statsmodels.stats.outliers_influence import variance_inflation_factor
 X_vif = reg_df[['Tomatometer',
                 'ln_Number_of_Reviews',
-                'Franchise_Status',
+                'Franchise',
                 'ln_Budget',
-                'Year']]
+                't']]
 
 vif = pd.DataFrame()
 vif['Variable'] = X_vif.columns
@@ -90,11 +90,11 @@ print("Model 2 Adj R²:", model2.rsquared_adj)
 print("Model 3 Adj R²:", model3.rsquared_adj)
 print("Number of observations:", len(reg_df))
 
-df_franchise = reg_df[reg_df['Franchise_Status'] == 1]
+df_franchise = reg_df[reg_df['Franchise'] == 1]
 X4= df_franchise[['Tomatometer',
                   'ln_Number_of_Reviews',
                   'ln_Budget',
-                  'Year']]
+                  't']]
 
 X4= sm.add_constant(X4)
 y = df_franchise['ln_Opening_Weekend_Gross']
@@ -102,11 +102,11 @@ y = df_franchise['ln_Opening_Weekend_Gross']
 model_f = sm.OLS(y, X4).fit(cov_type='HC3')
 print(model_f.summary())
 
-df_nonfranchise = reg_df[reg_df['Franchise_Status'] == 0]
+df_nonfranchise = reg_df[reg_df['Franchise'] == 0]
 X5 = df_nonfranchise[['Tomatometer',
                       'ln_Number_of_Reviews',
                       'ln_Budget',
-                      'Year']]
+                      't']]
 
 X5 = sm.add_constant(X5)
 y = df_nonfranchise['ln_Opening_Weekend_Gross']
@@ -115,7 +115,7 @@ model_nf = sm.OLS(y, X5).fit(cov_type='HC3')
 print(model_nf.summary())
 
 # Interaction term: Tomatometer × Franchise
-df['Tomatometer_Franchise'] = df['Tomatometer'] * df['Franchise_Status']
+df['Tomatometer_Franchise'] = df['Tomatometer'] * df['Franchise']
 
 # Define dependent variable
 y = df['ln_Opening_Weekend_Gross']
@@ -123,11 +123,11 @@ y = df['ln_Opening_Weekend_Gross']
 # Define regressors (full model with interaction)
 X_int = df[[
     'Tomatometer',
-    'Franchise_Status',
+    'Franchise',
     'Tomatometer_Franchise',
     'ln_Number_of_Reviews',
     'ln_Budget',
-    'Year'
+    't'
 ]]
 
 # Add constant
