@@ -127,8 +127,7 @@ def score_review(review_text: str) -> dict:
     quality_hits = sum(1 for w in words if w in QUALITY_WORDS)
     quality_hits += count_phrase_hits(text_lower, QUALITY_PHRASES)
 
-    # Normalize by review length so a 40-word review and a 5-word
-    # review are on the same scale. Guard against empty reviews.
+    # Normalize by review length. Guard against empty reviews.
     hype_score = hype_hits / total_words if total_words > 0 else 0.0
     quality_score = quality_hits / total_words if total_words > 0 else 0.0
 
@@ -159,9 +158,8 @@ def score_review(review_text: str) -> dict:
 # Step 4: Load the Excel file
 df = pd.read_excel(INPUT_PATH)
 
-# Drop rows with no review text -- nothing to score there.
+# Drop rows with no review text
 df = df[df["review_content"].notna()].copy()
-
 
 # Step 5: Score every review
 scored = df["review_content"].apply(score_review).apply(pd.Series)
@@ -177,6 +175,7 @@ df.to_excel(detailed_path, index=False)
 movie_summary = (
     df.groupby("Title")
     .agg(
+        Superhero=("Superhero", "first"),
         review_count=("review_content", "count"),
         avg_hype_score=("hype_score", "mean"),
         avg_quality_score=("quality_score", "mean"),
