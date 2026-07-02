@@ -7,8 +7,8 @@ MODEL 1: Tomatometer only
 Dep. Variable:     ln_Opening_Weekend_Gross   R-squared:                       0.116
 Model:                                  OLS   Adj. R-squared:                  0.114
 Method:                       Least Squares   F-statistic:                     69.46
-Date:                      Mon, 29 Jun 2026   Prob (F-statistic):           6.72e-16
-Time:                              00:54:41   Log-Likelihood:                -801.89
+Date:                      Thu, 02 Jul 2026   Prob (F-statistic):           6.72e-16
+Time:                              10:49:30   Log-Likelihood:                -801.89
 No. Observations:                       532   AIC:                             1608.
 Df Residuals:                           530   BIC:                             1616.
 Df Model:                                 1                                         
@@ -37,8 +37,8 @@ MODEL 2: + Number of Reviews
 Dep. Variable:     ln_Opening_Weekend_Gross   R-squared:                       0.398
 Model:                                  OLS   Adj. R-squared:                  0.396
 Method:                       Least Squares   F-statistic:                     175.0
-Date:                      Mon, 29 Jun 2026   Prob (F-statistic):           4.66e-59
-Time:                              00:54:41   Log-Likelihood:                -699.58
+Date:                      Thu, 02 Jul 2026   Prob (F-statistic):           4.66e-59
+Time:                              10:49:30   Log-Likelihood:                -699.58
 No. Observations:                       532   AIC:                             1405.
 Df Residuals:                           529   BIC:                             1418.
 Df Model:                                 2                                         
@@ -68,8 +68,8 @@ MODEL 3: Full model (HC3 robust SE)
 Dep. Variable:     ln_Opening_Weekend_Gross   R-squared:                       0.603
 Model:                                  OLS   Adj. R-squared:                  0.600
 Method:                       Least Squares   F-statistic:                     143.1
-Date:                      Mon, 29 Jun 2026   Prob (F-statistic):           1.15e-95
-Time:                              00:54:41   Log-Likelihood:                -588.69
+Date:                      Thu, 02 Jul 2026   Prob (F-statistic):           1.15e-95
+Time:                              10:49:30   Log-Likelihood:                -588.69
 No. Observations:                       532   AIC:                             1189.
 Df Residuals:                           526   BIC:                             1215.
 Df Model:                                 5                                         
@@ -102,8 +102,8 @@ MODEL: Franchise films only (HC3 robust SE)
 Dep. Variable:     ln_Opening_Weekend_Gross   R-squared:                       0.682
 Model:                                  OLS   Adj. R-squared:                  0.674
 Method:                       Least Squares   F-statistic:                     70.79
-Date:                      Mon, 29 Jun 2026   Prob (F-statistic):           2.53e-34
-Time:                              00:54:41   Log-Likelihood:                -133.57
+Date:                      Thu, 02 Jul 2026   Prob (F-statistic):           2.53e-34
+Time:                              10:49:30   Log-Likelihood:                -133.57
 No. Observations:                       164   AIC:                             277.1
 Df Residuals:                           159   BIC:                             292.6
 Df Model:                                 4                                         
@@ -137,8 +137,8 @@ MODEL: Non-franchise films only (HC3 robust SE)
 Dep. Variable:     ln_Opening_Weekend_Gross   R-squared:                       0.369
 Model:                                  OLS   Adj. R-squared:                  0.362
 Method:                       Least Squares   F-statistic:                     50.62
-Date:                      Mon, 29 Jun 2026   Prob (F-statistic):           7.54e-34
-Time:                              00:54:41   Log-Likelihood:                -434.07
+Date:                      Thu, 02 Jul 2026   Prob (F-statistic):           7.54e-34
+Time:                              10:49:30   Log-Likelihood:                -434.07
 No. Observations:                       368   AIC:                             878.1
 Df Residuals:                           363   BIC:                             897.7
 Df Model:                                 4                                         
@@ -170,8 +170,8 @@ MODEL: Full interaction model (HC3 robust SE)
 Dep. Variable:     ln_Opening_Weekend_Gross   R-squared:                       0.606
 Model:                                  OLS   Adj. R-squared:                  0.601
 Method:                       Least Squares   F-statistic:                     127.4
-Date:                      Mon, 29 Jun 2026   Prob (F-statistic):           4.49e-99
-Time:                              00:54:41   Log-Likelihood:                -586.92
+Date:                      Thu, 02 Jul 2026   Prob (F-statistic):           4.49e-99
+Time:                              10:49:30   Log-Likelihood:                -586.92
 No. Observations:                       532   AIC:                             1188.
 Df Residuals:                           525   BIC:                             1218.
 Df Model:                                 6                                         

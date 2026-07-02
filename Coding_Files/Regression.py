@@ -21,7 +21,7 @@ def log_summary(title: str, model) -> None:
 
 
 # Step 1: Load cleaned dataset
-df = pd.read_excel("Outputs&ExcelFiles/3DataRegression.xlsx")
+df = pd.read_excel("Outputs&ExcelFiles/DataPrep/3DataRegression.xlsx")
 
 print(df.head())  # check if data is read
 print(df.dtypes)  # check if data is in integers/floats format
