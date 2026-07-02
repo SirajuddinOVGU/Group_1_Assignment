@@ -3,6 +3,7 @@ import pandas as pd  # for tabular dataframes
 import numpy as np  # for numerical operations, i.e. arrays
 import statsmodels.api as sm  # for OLS regression
 from statsmodels.stats.outliers_influence import variance_inflation_factor
+from statsmodels.iolib.summary2 import summary_col
 from pathlib import Path
 
 # Output Setup
@@ -129,8 +130,34 @@ X_int = sm.add_constant(df[['Tomatometer', 'Franchise',
 interaction_model = sm.OLS(y_full, X_int).fit(cov_type='HC3')
 log_summary("MODEL: Full interaction model (HC3 robust SE)", interaction_model)
 
+# Step 9: Models summary table
+# Create a summary table of all models for easy comparison
+results_table = summary_col(
+    [model1, model2, model3, model_f, model_nf, interaction_model],
+    stars=True,
+    float_format='%0.3f',
+    model_names=[
+        'M1',
+        'M2',
+        'M3',
+        'Franchise',
+        'Non-Franchise',
+        'Interaction'
+    ],
+    info_dict={
+        'N': lambda x: f"{int(x.nobs)}",
+        'Adj. R²': lambda x: f"{x.rsquared_adj:.3f}"
+    }
+)
 
-# Step 9: Save Output
+print(results_table)
+results_table_text = results_table.as_text()
+log_lines.append(
+    f"\n{'='*80}\nSTEP 9: Models summary table\n{'='*80}\n"
+    f"{results_table_text}\n"
+)
+
+# Step 10: Save Output
 # Two output format (txt and Excel)
 log_path.write_text("\n".join(log_lines), encoding="utf-8")
 print(f"Saved full regression summaries to: {log_path}")
@@ -172,6 +199,7 @@ comparison_df = pd.DataFrame(comparison_rows)
 
 excel_path = OUTPUT_DIR / "regression_results.xlsx"
 with pd.ExcelWriter(excel_path) as writer:
+    results_table.tables[0].to_excel(writer, sheet_name="Model_Summary")
     comparison_df.to_excel(writer, sheet_name="Model_Comparison", index=False)
     vif.to_excel(writer, sheet_name="VIF", index=False)
     for label, m in models_to_save.items():
