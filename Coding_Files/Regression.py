@@ -153,7 +153,7 @@ results_table = summary_col(
 print(results_table)
 results_table_text = results_table.as_text()
 log_lines.append(
-    f"\n{'='*80}\nSTEP 9: Models summary table\n{'='*80}\n"
+    f"\n{'='*80}\nModels summary table\n{'='*80}\n"
     f"{results_table_text}\n"
 )
 
