@@ -12,8 +12,8 @@ from rapidfuzz import process, fuzz
 # df_links = dataset with movie slugs / links (e.g. m/star_wars_episode...)
 # df_titles = dataset with clean movie titles (e.g. Star Wars: The Force Awakens)
 
-df_links = pd.read_excel("Outputs&ExcelFiles/MovieTitleMerging/1links.xlsx")
-df_titles = pd.read_excel("Outputs&ExcelFiles/MovieTitleMerging/1titles.xlsx")
+df_links = pd.read_excel("1_Data/2_Intermediate/1links.xlsx")
+df_titles = pd.read_excel("1_Data/2_Intermediate/1titles.xlsx")
 
 print("Links preview:")
 print(df_links.head())
@@ -115,7 +115,7 @@ print(merged.shape)
 # =========================
 # 11. SAVE FINAL FILE
 # =========================
-output_dir = Path("Outputs&ExcelFiles/MovieTitleMerging")
+output_dir = Path("1_Data/2_Intermediate")
 output_dir.mkdir(parents=True, exist_ok=True)
 output_path = output_dir / "2merged_movies.xlsx"
 

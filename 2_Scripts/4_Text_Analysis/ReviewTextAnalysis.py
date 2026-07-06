@@ -8,9 +8,9 @@ from wordcloud import WordCloud, STOPWORDS
 
 
 # Step 1: Set file path
-INPUT_PATH = Path("Outputs&ExcelFiles/KaggleData/rotten_tomatoes_critic_reviews (PreRelease).xlsx")
+INPUT_PATH = Path("1_Data/3_Final_Data/rotten_tomatoes_critic_reviews (PreRelease).xlsx")
 
-OUTPUT_DIR = Path("Outputs&ExcelFiles/TextAnalysisOutput")
+OUTPUT_DIR = Path("3_Outputs&ExcelFiles/TextAnalysisOutput")
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 

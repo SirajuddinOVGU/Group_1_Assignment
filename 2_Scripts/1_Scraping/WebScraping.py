@@ -19,8 +19,8 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 logger = logging.getLogger(__name__)
 
 # ── Config ───────────────────────────────────────────────────────────────────
-INPUT_FILE  = '/workspaces/Group_1_Assignment/Outputs&ExcelFiles/1DataFromBoxOfficeMojo.xlsx'
-OUTPUT_FILE = '/workspaces/Group_1_Assignment/Outputs&ExcelFiles/2DataAfterWebScraping.xlsx'
+INPUT_FILE  = '/workspaces/Group_1_Assignment/1_Data/1_Raw_Data/1DataFromBoxOfficeMojo.xlsx'
+OUTPUT_FILE = '/workspaces/Group_1_Assignment/1_Data/2_Intermediate/2DataAfterWebScraping.xlsx'
 DELAY       = 1.5  # seconds between requests
 # ─────────────────────────────────────────────────────────────────────────────
 

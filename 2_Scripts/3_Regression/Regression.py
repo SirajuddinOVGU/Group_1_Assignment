@@ -7,7 +7,7 @@ from statsmodels.iolib.summary2 import summary_col
 from pathlib import Path
 
 # Output Setup
-OUTPUT_DIR = Path("Outputs&ExcelFiles/RegressionOutput")
+OUTPUT_DIR = Path("3_Outputs&ExcelFiles/RegressionOutput")
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 log_path = OUTPUT_DIR / "regression_summaries.txt"
@@ -22,7 +22,7 @@ def log_summary(title: str, model) -> None:
 
 
 # Step 1: Load cleaned dataset
-df = pd.read_excel("Outputs&ExcelFiles/DataPrep/4NewPreReleaseDataRegression.xlsx")
+df = pd.read_excel("1_Data/3_Final_Data/4NewPreReleaseDataRegression.xlsx")
 
 print(df.head())  # check if data is read
 print(df.dtypes)  # check if data is in integers/floats format
