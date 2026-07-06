@@ -19,28 +19,26 @@ Based on this research question we test two hypotheses:
 H1 is tested using OLS regression, controlling for production budget, franchise status, review volume, and release year. H2 is tested using a lexicon-based text analysis of pre-release critic review content, comparing hype vs. quality language across superhero and non superhero film reviews.
 
 ## Data sources ##
-Box office Mojo - Movie name, opening weekend revenue, release date, production budget
-Rotten Tomatoes - Tomatometer scores, number of critic reviews
-Clapper - ..... will discuss how to put this (Independent Tomamtometer scores)
-Kaggle - Tomatometer movie review dataset
-Wikipedia - Production budget 
-Claude (AI model) - Franchise status (0/1), Superhero and non-superhero (0/1)
+- Box office Mojo - Movie name, opening weekend revenue, release date, production budget
+- Rotten Tomatoes - Tomatometer scores, number of critic reviews
+- Clapper - ..... will discuss how to put this (Independent Tomamtometer scores)
+- Kaggle - Tomatometer movie review dataset
+- Wikipedia - Production budget
+- Claude (AI model) - Franchise status (0/1), Superhero and non-superhero (0/1)
 
 
 ## Methodology ##
 #### Regression Analysis ####
-which test our H1 
-Model 1 - ln(Opening Weekend Grossi)=0+1Tomatometeri+it
-Model 2 - ln(Opening Weekend Grossi)=0+1Tomatometeri+2ln(Volumei)+it
-Model 3 - ln(Opening Weekend Grossi)=0+1Tomatometeri+2ln(Volumei)+3Franchisei+4ln(Budgeti)+5Yeari+it
+- Model 1 - ln(Opening Weekend Grossi)=0+1Tomatometeri+it
+- Model 2 - ln(Opening Weekend Grossi)=0+1Tomatometeri+2ln(Volumei)+it
+- Model 3 - ln(Opening Weekend Grossi)=0+1Tomatometeri+2ln(Volumei)+3Franchisei+4ln(Budgeti)+5Yeari+it
 
 #### Text Analysis ####
-which test our H2
 - Create two custom dictionaries : Hype related and Quality related
 - Calculate hype score and quality score
 - Classify the review into : Hype, Quality, Mixed or Neither
 
 #### Variables ####
-Dependent variable - Opening Weekend gross (Opening Weekend Box office revenue)
-Independent variable - Tomatometer score
-Control variables - Review volume, Budget, Franchise, Time trend
+- Dependent variable - Opening Weekend gross (Opening Weekend Box office revenue)
+- Independent variable - Tomatometer score
+- Control variables - Review volume, Budget, Franchise, Time trend
