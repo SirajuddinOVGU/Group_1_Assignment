@@ -1,2 +1,21 @@
-# Group_1_Assignment
-Media Economics Group 1 Assignment
+### The Effect of Critic Reviews on Opening Weekend Box Office Performance ###
+
+# Master Seminar Research Term Paper — Media Economics Seminar #
+# Otto von Guericke University Magdeburg, Faculty of Economics and Management, Summer Term 2026 # 
+
+Authors: Muhammad Sirajuddin Bin Abd Halim, Yashoda K C, Poon Kar Mun
+
+## Project Overview ##
+
+This project examines whether Rotten Tomatoes critic review metrics — the Tomatometer score and review volume — are associated with opening weekend box office revenue for wide-release films in the US market between 2015 and 2019. Opening weekend revenue is used because it captures consumer demand at the point where pre-release information signals (critic reviews in particular) are expected to matter most, before word-of-mouth from general audiences can shape later decisions.
+
+Our study address the following Research Question: 
+# What is the relationship between Rotten Tomatoes review metrics and opening weekend box office performance? # 
+
+Based on this research question we test two hypotheses:
+
+# H1: Higher Rotten Tomatoes critic ratings are positively associated with opening weekend domestic box-office revenue. #
+# H2: Superhero movie reviews contain significantly more hype-related language than non-superhero reviews, relative to quality-related language. #
+
+
+H1 is tested using OLS regression, controlling for production budget, franchise status, review volume, and release year. H2 is tested using a lexicon-based text analysis of pre-release critic review content, comparing hype vs. quality language across superhero and non superhero film reviews.
