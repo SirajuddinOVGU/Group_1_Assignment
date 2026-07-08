@@ -20,9 +20,8 @@ H1 is tested using OLS regression, controlling for production budget, franchise 
 
 ## Data sources ##
 - Box office Mojo - Movie name, opening weekend revenue, release date, production budget
-- Rotten Tomatoes - Tomatometer scores, number of critic reviews
-- Clapper - ..... will discuss how to put this (Independent Tomamtometer scores)
-- Kaggle - Tomatometer movie review dataset
+- Rotten Tomatoes - Tomatometer scores, number of critic reviews 
+- Kaggle - Tomatometer movie review dataset, Independent Tomamtometer scores
 - Wikipedia - Production budget
 - Claude (AI model) - Franchise status (0/1), Superhero and non-superhero (0/1)
 
@@ -44,30 +43,10 @@ H1 is tested using OLS regression, controlling for production budget, franchise 
 - Control variables - Review volume, Budget, Franchise, Time trend
 
 ## Repository Structure ##
-Data / Raw Data / DataFromBoxOfficeMojo.xlsx
-                / Rotten Tomatoes critic reviews cleaned.xlsx
-                / Rotten tomatoes movies.xlsx
-    / Intermediate Data / 1links.xlsx
-                        / 1titles.xlsx
-                        / 2DataAfterWebScraping.xlsx
-                        / 2mergedmovies.xlsx
-                        / 3DataRegression
-                        / MoviesLabelling.xlsx
-    / Final Data / 4NewPreReleaseDataRegression.xlsx
-                 / Rotten tomatoes critic reviews (Pre Release).xlsx
+1. Data - Raw data, Intermediate, Final Data
+3. Scripts - Scraping, Data preparation, Regression, Text Analysis
+4. Outputs&Excel Files - Regression output, Text Analysis output
 
-Scripts / Scraping / Webscraping.py
-        / Data preparation / Movie Title Merging.py
-        / Regression / Regression.py
-        / Text Analysis / Review Text Analysis.py
-
-Outputs&Excel Files / Regression output / regression results.xlsx
-                                        / regression summaries.txt
-                    / Text Analysis output / Pre Release Review text analysis summary (Pivot Table). xlsx
-                                           / Movie hype quality summary.xlsx
-                                           / Reviews with hpye quality scores.xlsx
-                                           / word count hpye.png
-                                           / word count quality.png
 
 ## Limitations ##
 - This analysis is observational so results does not reflect casual effects
