@@ -42,3 +42,34 @@ H1 is tested using OLS regression, controlling for production budget, franchise 
 - Dependent variable - Opening Weekend gross (Opening Weekend Box office revenue)
 - Independent variable - Tomatometer score
 - Control variables - Review volume, Budget, Franchise, Time trend
+
+## Repository Structure ##
+Data / Raw Data / DataFromBoxOfficeMojo.xlsx
+                / Rotten Tomatoes critic reviews cleaned.xlsx
+                / Rotten tomatoes movies.xlsx
+    / Intermediate Data / 1links.xlsx
+                        / 1titles.xlsx
+                        / 2DataAfterWebScraping.xlsx
+                        / 2mergedmovies.xlsx
+                        / 3DataRegression
+                        / MoviesLabelling.xlsx
+    / Final Data / 4NewPreReleaseDataRegression.xlsx
+                 / Rotten tomatoes critic reviews (Pre Release).xlsx
+
+Scripts / Scraping / Webscraping.py
+        / Data preparation / Movie Title Merging.py
+        / Regression / Regression.py
+        / Text Analysis / Review Text Analysis.py
+
+Outputs&Excel Files / Regression output / regression results.xlsx
+                                        / regression summaries.txt
+                    / Text Analysis output / Pre Release Review text analysis summary (Pivot Table). xlsx
+                                           / Movie hype quality summary.xlsx
+                                           / Reviews with hpye quality scores.xlsx
+                                           / word count hpye.png
+                                           / word count quality.png
+
+## Limitations ##
+- This analysis is observational so results does not reflect casual effects
+- The model does not control for competing releases in the same week.
+- Sample is limited to  US wide release between 2015 - 2019 which avoids the effects of COVID 19 in film industry.  
