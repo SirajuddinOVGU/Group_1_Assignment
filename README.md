@@ -23,7 +23,6 @@ H1 is tested using OLS regression, controlling for production budget, franchise 
 - Rotten Tomatoes - Tomatometer scores, number of critic reviews 
 - Kaggle - Tomatometer movie review dataset, Independent Tomamtometer scores
 - Wikipedia - Production budget
-- Claude (AI model) - Franchise status (0/1), Superhero and non-superhero (0/1)
 
 
 ## Methodology ##
