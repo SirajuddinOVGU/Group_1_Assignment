@@ -3,11 +3,11 @@
 #### Master Seminar Research Term Paper — Media Economics Seminar ####
 #### Otto von Guericke University Magdeburg, Faculty of Economics and Management, Summer Term 2026 ####
 
-Authors: Muhammad Sirajuddin Bin Abd Halim, Yashoda K C, Poon Kar Mun
+Authors: MSBAH, YKC, PKM
 
 ## Project Overview ##
 
-This project examines whether Rotten Tomatoes critic review metrics — the Tomatometer score and review volume — are associated with opening weekend box office revenue for wide-release films in the US market between 2015 and 2019. Opening weekend revenue is used because it captures consumer demand at the point where pre-release information signals (critic reviews in particular) are expected to matter most, before word-of-mouth from general audiences can shape later decisions.
+We evaluate if the Rotten Tomatoes’ critic's review scores (Tomatomer Score) are positively correlated with opening weekend box office revenue (U.S.-wide-released films) during the years 2015-2019. The use of opening weekend revenue as a measure provides an early indication of consumers' interest in a film when information about that film's quality prior to its release (pre-release signal, particularly based on critics’ reviews) would have the greatest impact on their decision-making. We ensured that the data used for critics' score and review content is specific to before the movies were released, ensuring the data is not affected by post-release reviews and negates word-of-mouth effects. By the time opening weekend revenue has been established, word of mouth from a broad audience may be impacting subsequent ticket sales.
 
 Our study address the following Research Question: 
 #### What is the relationship between Rotten Tomatoes review metrics and opening weekend box office performance? #### 
@@ -51,4 +51,22 @@ H1 is tested using OLS regression, controlling for production budget, franchise 
 ## Limitations ##
 - This analysis is observational so results does not reflect casual effects
 - The model does not control for competing releases in the same week.
-- Sample is limited to  US wide release between 2015 - 2019 which avoids the effects of COVID 19 in film industry.  
+- Sample is limited to  US wide release between 2015 - 2019 which avoids the effects of COVID 19 in film industry.
+
+
+-----------------------------------------------------------------------
+TASK DIVISION/CONTRIBUTIONS
+-----------------------------------------------------------------------
+MSBAH 
+1) Brainstormed for ideas, established topic of interest for research, directed flow and progress of work.
+2) Prepared baseline and pre-released data, data-cleaning, data checking and verification, finalized data for regression and text analysis
+3) Prepared python script for movie title merging (for text analysis), python script for Regression, and python script for review text analysis (including lexicons)
+4) Interpreted and prepared summaries for regression and text analysis results
+5) Prepared literature review and results section in group report and slides
+-----------------------------------------------------------------------
+YKC
+1)
+
+-----------------------------------------------------------------------
+PKM
+1)
