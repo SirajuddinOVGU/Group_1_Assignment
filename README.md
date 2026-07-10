@@ -62,6 +62,7 @@ MSBAH
 3) Prepared python script for movie title merging (for text analysis), python script for Regression, and python script for review text analysis (including lexicons)
 4) Interpreted and prepared summaries for regression and text analysis results
 5) Prepared literature review and results section in group report and slides
+6) Contributed to all sections in group report
 -----------------------------------------------------------------------
 YKC
 1)
