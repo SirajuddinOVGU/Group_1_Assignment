@@ -65,8 +65,10 @@ MSBAH
 6) Contributed to all sections in group report
 -----------------------------------------------------------------------
 YKC
-1)
-
+1) Drafted the initial Introduction, Motivation, Contribution, Limitations, and Conclusion sections of the research paper.
+2) Prepared the first draft of the project presentation and contributed to its revision with the team.
+3) Wrote the GitHub README and organized the repository by updating folder and file names.
+4) Collaborated in project discussions and contributed to refining the final paper and presentation.
 -----------------------------------------------------------------------
 PKM
 1) Brainstormed for ideas.
