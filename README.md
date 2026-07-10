@@ -68,4 +68,8 @@ YKC
 
 -----------------------------------------------------------------------
 PKM
-1)
+1) Brainstormed for ideas.
+2) Contributed to baseline data, data-cleaning, data checking and verification.
+3) Contributed to python script for web scraping of Rotten Tomatoes site and Budget data.
+4) Contributed to Introduction, Literature Review, Research Question, and Data slides.
+5) Contributed to all sections in group report except Main Results section.
